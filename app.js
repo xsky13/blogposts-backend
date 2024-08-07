@@ -35,4 +35,4 @@ app.get('/', (req, res) => {
 });
 
 
-app.listen(PORT, () => console.log('Application running on port ' + PORT));
+app.listen({ port: PORT, host: "0.0.0.0"});
