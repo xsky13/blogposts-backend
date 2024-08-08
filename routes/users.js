@@ -30,7 +30,6 @@ userRouter.get('/getUser', verifyToken, (req, res) => {
 userRouter.get('/getUserPosts', verifyToken, (req, res) => {
     jwt.verify(req.token, 'secretkey', async (err, data) => {
         if (err) return res.json({ err });
-        console.log(data.user.id);
         const posts = await prisma.post.findMany({ where: { userId: data.user.id }})
         return res.json({ posts });
     })
