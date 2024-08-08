@@ -8,18 +8,12 @@ const cors = require('cors')
 const { userRouter } = require("./routes/users");
 const postsRouter = require("./routes/posts");
 
-const allowlist = ['http://localhost:5173']
-var corsOptionsDelegate = function (req, callback) {
-    var corsOptions;
-    if (allowlist.indexOf(req.header('Origin')) !== -1) {
-        corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
-    } else {
-        corsOptions = { origin: false } // disable CORS for this request
-    }
-    callback(null, corsOptions) // callback expects two parameters: error and options
+var corsOptions = {
+    origin: 'https://blogpost-frontend-alpha.vercel.app',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 
-app.use(cors(corsOptionsDelegate));
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(session({ secret: "cats", resave: false, saveUninitialized: false }));
@@ -35,4 +29,4 @@ app.get('/', (req, res) => {
 });
 
 
-app.listen({ port: PORT, host: "0.0.0.0"});
+app.listen({ port: PORT, host: "0.0.0.0" });
