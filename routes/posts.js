@@ -11,7 +11,8 @@ postsRouter.get('/all', asyncHandler(async (req, res) => {
     const orderAs = req.query.orderAs;
 
     const posts = await prisma.post.findMany({
-        orderBy: { timeCreated: orderAs }
+        orderBy: { timeCreated: orderAs },
+        include: { User: true }
     });
 
     return res.json(posts);
